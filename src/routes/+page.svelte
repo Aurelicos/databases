@@ -1,1 +1,5 @@
-<h1 class="h-screen flex items-center justify-center text-6xl">Databases Showcase</h1>
+<script lang="ts">
+    import Intro from "$lib/components/Intro.svelte";
+</script>
+
+<Intro />
