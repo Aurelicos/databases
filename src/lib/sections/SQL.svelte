@@ -1,6 +1,6 @@
 <script>
     import DbShowcase from "$lib/components/DbShowcase.svelte";
-import tilt from "../../utils/tilt";
+    import tilt from "../../utils/tilt";
 </script>
 
 <div class="flex justify-center flex-col items-center">

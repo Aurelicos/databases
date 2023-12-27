@@ -27,6 +27,7 @@
 	"type": "module",
 	"dependencies": {
 		"@sveltejs/vite-plugin-svelte": "^3.0.1",
-		"@types/node": "^20.10.5"
+		"@types/node": "^20.10.5",
+		"mysql2": "^3.6.5"
 	}
 }

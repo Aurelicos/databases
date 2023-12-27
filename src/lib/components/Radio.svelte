@@ -37,10 +37,10 @@
 
 <style>
     label {
-        @apply border-2 border-transparent;
+        @apply border-2 border-transparent transition-all duration-300;
     }
     .selected {
-        @apply border-2 border-[#2f363e];
+        @apply border-2 border-[#2f363e] shadow-2xl;
     }
     .radio-overlay {
         @apply w-4 h-4 bg-white rounded-[50%] absolute top-1/2 -translate-y-1/2 left-4;
