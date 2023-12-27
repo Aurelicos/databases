@@ -9,6 +9,7 @@
     export let code: string;
     export let selected: string;
     export let value: string;
+    export let name: string;
 
     const handleClick = () => {
         dispatch("changed", value);
@@ -27,7 +28,7 @@
     <div class="pl-6 pr-2 flex items-center relative">
         <input
             type="radio"
-            name="operation"
+            {name}
             {value}
             on:change={(event) => dispatch("changed", event.currentTarget.value)}
             checked={selected === value}

@@ -3,6 +3,8 @@
     import Radio from "./Radio.svelte";
     import { onMount } from "svelte";
 
+    export let name: string;
+
     let code = `await connection.execute('SELECT * FROM showcase');        `;
 
     let code1 = `const name = \`User_\${Math.floor(Math.random() * 1000)}\`;   
@@ -53,9 +55,9 @@ await connection.execute(query);                           `;
 </svelte:head>
 
 <div
-    class="w-full border border-[#30363d] bg-[#11171e] px-20 py-16 rounded-3xl flex mb-32 justify-between gap-20"
+    class="w-full border border-[#30363d] bg-[#11171e] px-20 py-16 rounded-3xl flex justify-between gap-20"
 >
-    <div class="w-1/2 overflow-y-scroll overflow-x-scroll">
+    <div class="w-1/2 overflow-y-scroll overflow-x-scroll max-h-96">
         {#if data.length === 0}
             <div
                 class="col-span-full flex justify-center items-center w-full"
@@ -84,9 +86,9 @@ await connection.execute(query);                           `;
         {/if}
     </div>
     <div class="flex flex-col justify-start items-start gap-6">
-        <Radio {code} {selected} on:changed={changed} value={"0"} />
-        <Radio code={code1} {selected} on:changed={changed} value={"1"} />
-        <Radio code={code2} {selected} on:changed={changed} value={"2"} />
+        <Radio {name} {code} {selected} on:changed={changed} value={"0"} />
+        <Radio {name} code={code1} {selected} on:changed={changed} value={"1"} />
+        <Radio {name} code={code2} {selected} on:changed={changed} value={"2"} />
     </div>
 </div>
 

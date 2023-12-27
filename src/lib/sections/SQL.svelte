@@ -1,5 +1,5 @@
 <script>
-    import DbShowcase from "$lib/components/DbShowcase.svelte";
+    import DbShowcase from "$lib/components/SQLShowcase.svelte";
     import tilt from "../../utils/tilt";
 </script>
 
@@ -49,11 +49,13 @@
             />
         </div>
         <div
-            class="h-64 w-[3px]"
+            class="h-36 w-[3px]"
             style="background: linear-gradient(rgb(63, 185, 80), rgb(46, 160, 67), transparent);"
         ></div>
-        <h1 class="text-[3.25rem] mb-6 text-[#3fb950] font-semibold">MySQL</h1>
-        <DbShowcase />
+        <h1 class="text-[3.25rem] mb-6 text-[#2ea043] font-semibold">
+            <span class="text-white">MySQL:</span> A Popular Open-Source Database
+        </h1>
+        <DbShowcase name={"mysql"} />
     </div>
 </div>
 
