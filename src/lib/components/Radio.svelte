@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Highlight from "svelte-highlight";
+    import Highlight, { LineNumbers } from "svelte-highlight";
     import typescript from "svelte-highlight/languages/typescript";
     import atomOneDark from "svelte-highlight/styles/atom-one-dark";
     import { createEventDispatcher } from "svelte";
@@ -9,15 +9,20 @@
     export let code: string;
     export let selected: string;
     export let value: string;
+
+    const handleClick = () => {
+        dispatch("changed", value);
+    };
 </script>
 
 <svelte:head>
     {@html atomOneDark}
 </svelte:head>
 
-<label
-    class="flex justify-between bg-[#282c34] rounded-lg pr-2 py-1 cursor-pointer"
+<button
+    class="flex w-full justify-between bg-[#282c34] rounded-lg pr-2 py-1 cursor-pointer {selected === value ? 'scale-[1.01]' : ''}"
     class:selected={selected === value}
+    on:click={handleClick}
 >
     <div class="pl-6 pr-2 flex items-center relative">
         <input
@@ -32,12 +37,14 @@
             <div class="radio-inner"></div>
         </div>
     </div>
-    <Highlight language={typescript} {code} />
-</label>
+    <Highlight language={typescript} {code} class="w-full flex" let:highlighted>
+        <LineNumbers {highlighted} class="flex justify-start w-full" />
+    </Highlight>
+</button>
 
 <style>
-    label {
-        @apply border-2 border-transparent transition-all duration-300;
+    button {
+        @apply border-2 border-transparent transition-all duration-100;
     }
     .selected {
         @apply border-2 border-[#2f363e] shadow-2xl;

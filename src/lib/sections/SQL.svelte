@@ -52,6 +52,7 @@
             class="h-64 w-[3px]"
             style="background: linear-gradient(rgb(63, 185, 80), rgb(46, 160, 67), transparent);"
         ></div>
+        <h1 class="text-[3.25rem] mb-6 text-[#3fb950] font-semibold">MySQL</h1>
         <DbShowcase />
     </div>
 </div>
