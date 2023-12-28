@@ -1,4 +1,5 @@
 <script>
+    import MainButton from "$lib/components/MainButton.svelte";
     import DbShowcase from "$lib/components/SQLShowcase.svelte";
     import tilt from "../../utils/tilt";
 </script>
@@ -27,18 +28,7 @@
                     requiring precise and complex data operations.
                 </p>
                 <div>
-                    <button
-                        class="text-[1.3rem] font-semibold flex items-center hover-effect relative"
-                        >Discover SQL Databases
-                        <span
-                            class="arrow-container inline-flex items-center ml-3"
-                        >
-                            <span class="arrow-tail"></span>
-                            <span
-                                class="border-r-2 border-b-2 border-white p-[4px] -rotate-[45deg]"
-                            ></span>
-                        </span>
-                    </button>
+                    <MainButton text={"Discover SQL Databases"} />
                 </div>
             </div>
 
@@ -58,25 +48,3 @@
         <DbShowcase name={"mysql"} />
     </div>
 </div>
-
-<style>
-    .hover-effect::after {
-        @apply content-[''] absolute left-0 bottom-[-8px] h-[2px] w-full bg-white origin-bottom-left transition-transform ease-in-out scale-x-0;
-    }
-
-    .hover-effect:hover::after {
-        @apply scale-x-100;
-    }
-
-    .hover-effect:hover .arrow-tail {
-        @apply w-[15px];
-    }
-
-    .arrow-container {
-        @apply inline-flex items-center h-[10px];
-    }
-
-    .arrow-tail {
-        @apply inline-block w-0 h-[2px] bg-white transition-all duration-300 -mr-[9px];
-    }
-</style>
