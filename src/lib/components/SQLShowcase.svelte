@@ -2,18 +2,9 @@
     import atomOneDark from "svelte-highlight/styles/atom-one-dark";
     import Radio from "./Radio.svelte";
     import { onMount } from "svelte";
+    import { sql } from "../constants/code";
 
     export let name: string;
-
-    let code = `await connection.execute('SELECT * FROM showcase');        `;
-
-    let code1 = `const name = \`User_\${Math.floor(Math.random() * 1000)}\`;   
-const email = \`\${name}@example.com\`;                       
-query = 'INSERT INTO showcase (name, email) VALUES (?, ?)';
-await connection.execute(query, [name, email]);            `;
-
-    let code2 = `query = 'DELETE FROM showcase ORDER BY id DESC LIMIT 1';   
-await connection.execute(query);                           `;
 
     let selected = "0";
 
@@ -48,6 +39,12 @@ await connection.execute(query);                           `;
             console.error("Error:", error);
         }
     });
+
+    let currentButton = "query";
+
+    function selectButton(button: string) {
+        currentButton = button;
+    }
 </script>
 
 <svelte:head>
@@ -57,11 +54,9 @@ await connection.execute(query);                           `;
 <div
     class="w-full border border-[#30363d] bg-[#11171e] px-20 py-16 rounded-3xl flex justify-between gap-20"
 >
-    <div class="w-1/2 overflow-y-scroll overflow-x-scroll max-h-96">
+    <div class="w-1/2 overflow-y-scroll overflow-x-scroll {currentButton === "query" ? "max-h-96" : "max-h-[45rem]"}">
         {#if data.length === 0}
-            <div
-                class="col-span-full flex justify-center items-center w-full"
-            >
+            <div class="col-span-full flex justify-center items-center w-full">
                 <div class="loading" />
             </div>
         {:else}
@@ -86,9 +81,44 @@ await connection.execute(query);                           `;
         {/if}
     </div>
     <div class="flex flex-col justify-start items-start gap-6">
-        <Radio {name} {code} {selected} on:changed={changed} value={"0"} />
-        <Radio {name} code={code1} {selected} on:changed={changed} value={"1"} />
-        <Radio {name} code={code2} {selected} on:changed={changed} value={"2"} />
+        <div class="button-container transition-all duration-300">
+            <div class="flex relative">
+                <button
+                    on:click={() => selectButton("query")}
+                    class:selected={currentButton === "query"}
+                >
+                    query
+                </button>
+                <button
+                    on:click={() => selectButton("js")}
+                    class:selected={currentButton === "js"}
+                >
+                    js
+                </button>
+                <div class="underline" class:selected={currentButton} />
+            </div>
+        </div>
+        <Radio
+            {name}
+            code={currentButton === "query" ? sql.query : sql.js}
+            {selected}
+            on:changed={changed}
+            value={"0"}
+        />
+        <Radio
+            {name}
+            code={currentButton === "query" ? sql.query1 : sql.js1}
+            {selected}
+            on:changed={changed}
+            value={"1"}
+        />
+        <Radio
+            {name}
+            code={currentButton === "query" ? sql.query2 : sql.js2}
+            {selected}
+            on:changed={changed}
+            value={"2"}
+        />
     </div>
 </div>
 
@@ -103,5 +133,17 @@ await connection.execute(query);                           `;
     }
     th {
         @apply bg-[#050505];
+    }
+    button {
+        @apply bg-transparent py-2 rounded-lg w-20 transition-all duration-300;
+    }
+    button.selected {
+        @apply bg-[#ffffff05];
+    }
+    .button-container .underline {
+        @apply bg-slate-300 absolute h-[2px] bottom-0 w-20 left-0 transition-all duration-300;
+    }
+    .button-container button.selected + .underline {
+        @apply left-1/2;
     }
 </style>

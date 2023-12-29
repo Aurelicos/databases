@@ -104,7 +104,7 @@
             </div>
         </div>
         <div>
-            <NoSqlShowcase />
+            <NoSqlShowcase name={"nosql"} />
         </div>
     </div>
 </div>

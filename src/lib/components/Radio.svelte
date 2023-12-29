@@ -10,6 +10,7 @@
     export let selected: string;
     export let value: string;
     export let name: string;
+    export let reversed: boolean = false;
 
     const handleClick = () => {
         dispatch("changed", value);
@@ -21,16 +22,22 @@
 </svelte:head>
 
 <button
-    class="flex w-full justify-between bg-[#282c34] rounded-lg pr-2 py-1 cursor-pointer {selected === value ? 'scale-[1.01]' : ''}"
+    class="flex w-full justify-between {reversed
+        ? 'flex-row-reverse'
+        : 'flex-row'} bg-[#282c34] rounded-lg pr-2 py-1 cursor-pointer {selected ===
+    value
+        ? 'scale-[1.01]'
+        : ''}"
     class:selected={selected === value}
     on:click={handleClick}
 >
-    <div class="pl-6 pr-2 flex items-center relative">
+    <div class="{reversed ? "pr-12" : "pl-6 pr-2"} flex items-center justify-center relative">
         <input
             type="radio"
             {name}
             {value}
-            on:change={(event) => dispatch("changed", event.currentTarget.value)}
+            on:change={(event) =>
+                dispatch("changed", event.currentTarget.value)}
             checked={selected === value}
             class="radio opacity-0 absolute -z-[1]"
         />
