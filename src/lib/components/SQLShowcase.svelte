@@ -52,9 +52,9 @@
 </svelte:head>
 
 <div
-    class="w-full border border-[#30363d] bg-[#11171e] px-20 py-16 rounded-3xl flex justify-between gap-20"
+    class="w-full border border-[#30363d] bg-[#11171e] px-8 py-10 sm:px-20 sm:py-16 rounded-3xl flex xl:flex-row flex-col justify-between gap-20 overflow-x-scroll"
 >
-    <div class="w-1/2 overflow-y-scroll overflow-x-scroll {currentButton === "query" ? "max-h-96" : "max-h-[45rem]"}">
+    <div class="xl:w-1/2 overflow-y-scroll overflow-x-scroll {currentButton === "query" ? "max-h-96" : "max-h-[45rem]"}">
         {#if data.length === 0}
             <div class="col-span-full flex justify-center items-center w-full">
                 <div class="loading" />

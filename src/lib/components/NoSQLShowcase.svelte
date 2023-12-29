@@ -4,19 +4,9 @@
     import Radio from "./Radio.svelte";
     import { onMount } from "svelte";
     import { Highlight } from "svelte-highlight";
+    import { nosql } from "../constants/code";
 
     export let name: string;
-
-    let code = `const finalRows = await collection.find().toArray();                      `;
-
-    let code1 = `const name = \`User_\${Math.floor(Math.random() * 1000)}\`;                  
-const email = \`\${name}@example.com\`;                                      
-await collection.insertOne({ name, email });                              `;
-
-    let code2 = `const lastDoc = await collection.find().sort({ _id: -1 }).limit(1).next();
-if (lastDoc) {                                                            
-    await collection.deleteOne({ _id: lastDoc._id });                     
-}                                                                         `;
 
     let selected = "0";
     let jsonData = "";
@@ -58,12 +48,12 @@ if (lastDoc) {
 </svelte:head>
 
 <div
-    class="w-full border border-[#30363d] bg-[#11171e] px-20 py-16 rounded-3xl flex justify-between gap-20"
+    class="w-full xl:flex-row flex-col border border-[#30363d] bg-[#11171e] px-8 py-10 sm:px-20 sm:py-16 rounded-3xl flex justify-between gap-20"
 >
     <div class="flex flex-col justify-start items-start gap-6">
         <Radio
             {name}
-            {code}
+            code={nosql.code}
             {selected}
             on:changed={changed}
             value={"0"}
@@ -71,7 +61,7 @@ if (lastDoc) {
         />
         <Radio
             {name}
-            code={code1}
+            code={nosql.code1}
             reversed={true}
             {selected}
             on:changed={changed}
@@ -79,14 +69,14 @@ if (lastDoc) {
         />
         <Radio
             {name}
-            code={code2}
+            code={nosql.code2}
             reversed={true}
             {selected}
             on:changed={changed}
             value={"2"}
         />
     </div>
-    <div class="w-1/2 overflow-y-scroll overflow-x-scroll max-h-96">
+    <div class="xl:w-1/2 overflow-y-scroll overflow-x-scroll max-h-96">
         {#if jsonData}
             <Highlight language={json} code={jsonData} />
         {:else}

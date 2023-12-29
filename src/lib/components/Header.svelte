@@ -27,6 +27,7 @@
         </a>
         <a
             href="/"
+            class="sm:block hidden"
             on:click={(e) => {
                 e.preventDefault();
                 dispatch("scrollHome");

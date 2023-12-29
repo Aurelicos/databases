@@ -6,7 +6,7 @@
 
 <div class="h-screen flex items-center justify-center">
     <div class="flex justify-center h-full items-center">
-        <div class="flex flex-col h-1/2 items-center mr-20">
+        <div class="flex-col h-1/2 items-center mr-20 sm:flex hidden">
             <div
                 class="w-[3px] h-full"
                 style="background: linear-gradient(#7C72FF, #2DA44E 80%, #3FB950);"
@@ -18,15 +18,15 @@
             ></div>
         </div>
 
-        <div class="flex justify-start items-start flex-col relative">
-            <h1 class="text-[5.5rem] font-medium">Databases Showcase</h1>
-            <p class="text-[#848d97] text-2xl">
+        <div class="flex justify-start items-start flex-col relative px-4">
+            <h1 class="sm:text-[5.5rem] text-[4rem] font-medium">Databases Showcase</h1>
+            <p class="text-[#848d97] sm:text-2xl text-xl">
                 The most used types of databases in the world!
             </p>
             <div>
                 <button
                     on:click={() => dispatch("continue")}
-                    class="px-4 rounded-lg bg-transparent border border-[#bc8cff] h-12 text-lg my-20 flex items-center justify-center hover-effect"
+                    class="px-4 rounded-lg bg-transparent border border-[#bc8cff] h-12 text-lg my-10 sm:my-20 flex items-center justify-center hover-effect"
                 >
                     Continue
                     <span class="arrow-container inline-flex items-center ml-3">
@@ -40,7 +40,7 @@
             <p class="text-[#6e7681] text-xl">
                 Currently displayed databases ↘︎
             </p>
-            <div class="icons flex gap-20 h-20 mt-6">
+            <div class="icons flex gap-20 h-20 mt-6 w-full">
                 <a href="/">
                     <img src="/svg/firebase.svg" alt="firebase" />
                 </a>

@@ -31,3 +31,17 @@ if (lastEntry) {
     await lastEntry.destroy();                             
 }                                                          `;
 }
+
+export class nosql {
+    static code = `const finalRows = await collection.find().toArray();                      `;
+
+    static code1 = `const name = \`User_\${Math.floor(Math.random() * 1000)}\`;                  
+const email = \`\${name}@example.com\`;                                      
+await collection.insertOne({ name, email });                              `;
+
+    static code2 = `const lastDoc = await collection.find().sort({ _id: -1 }).limit(1).next();
+if (lastDoc) {                                                            
+    await collection.deleteOne({ _id: lastDoc._id });                     
+}                                                                         `;
+
+}
