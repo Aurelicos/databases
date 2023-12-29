@@ -1,7 +1,12 @@
 <script>
+    import { createEventDispatcher } from "svelte";
     import MainButton from "$lib/components/MainButton.svelte";
     import DbShowcase from "$lib/components/SQLShowcase.svelte";
     import tilt from "../../utils/tilt";
+    const dispatch = createEventDispatcher();
+
+    export let sql;
+    export let sql_showcase;
 </script>
 
 <div class="flex justify-center flex-col items-center">
@@ -13,6 +18,7 @@
 
         <div
             use:tilt={{ duration: 100, max: 4 }}
+            bind:this={sql}
             class="flex justify-between bg-[#11171e] border border-[#30363d] px-20 py-16 rounded-3xl"
         >
             <div class="w-1/2 flex flex-col justify-between">
@@ -28,7 +34,10 @@
                     requiring precise and complex data operations.
                 </p>
                 <div>
-                    <MainButton text={"Discover SQL Databases"} />
+                    <MainButton
+                        text={"Discover SQL Databases"}
+                        on:click={() => dispatch("discover_sql")}
+                    />
                 </div>
             </div>
 
@@ -42,9 +51,14 @@
             class="h-36 w-[3px]"
             style="background: linear-gradient(rgb(63, 185, 80), rgb(46, 160, 67), transparent);"
         ></div>
-        <h1 class="text-[3.25rem] mb-6 text-[#2ea043] font-semibold">
-            <span class="text-white">MySQL:</span> A Popular Open-Source Database
-        </h1>
-        <DbShowcase name={"mysql"} />
+        <div
+            class="w-full flex flex-col justify-center items-center"
+            bind:this={sql_showcase}
+        >
+            <h1 class="text-[3.25rem] mb-6 text-[#2ea043] font-semibold">
+                <span class="text-white">MySQL:</span> A Popular Open-Source Database
+            </h1>
+            <DbShowcase name={"mysql"} />
+        </div>
     </div>
 </div>

@@ -1,7 +1,12 @@
 <script>
     import MainButton from "$lib/components/MainButton.svelte";
     import NoSqlShowcase from "$lib/components/NoSQLShowcase.svelte";
+    import { createEventDispatcher } from "svelte";
     import tilt from "../../utils/tilt";
+
+    const dispatch = createEventDispatcher();
+
+    export let mongo;
 </script>
 
 <div class="w-full flex flex-col items-center justify-center pb-20">
@@ -49,7 +54,10 @@
                         are continuously evolving.
                     </p>
                     <div class="my-10">
-                        <MainButton text={"Discover NoSQL Databases"} />
+                        <MainButton
+                            text={"Discover NoSQL Databases"}
+                            on:click={() => dispatch("discover_nosql")}
+                        />
                     </div>
                 </div>
                 <img
@@ -95,15 +103,13 @@
                 style="background: linear-gradient(transparent, #F778BA, #F778BA, transparent);"
             ></div>
             <div class="ml-12 mt-20 font-medium">
-                <h1 class="text-[3.25rem] w-1/2 text-[#f778ba]">
-                    MongoDB
-                </h1>
+                <h1 class="text-[3.25rem] w-1/2 text-[#f778ba]">MongoDB</h1>
                 <h1 class="text-[3.25rem] mb-6 w-1/2">
                     The Dynamic Choice in NoSQL Databases
                 </h1>
             </div>
         </div>
-        <div>
+        <div bind:this={mongo}>
             <NoSqlShowcase name={"nosql"} />
         </div>
     </div>
