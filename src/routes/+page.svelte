@@ -46,7 +46,7 @@
 />
 
 <div bind:this={intro}>
-    <Intro />
+    <Intro on:continue={() => scroll(sql)} />
 </div>
 
 <div>

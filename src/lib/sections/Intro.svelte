@@ -1,3 +1,9 @@
+<script lang="ts">
+    import { createEventDispatcher } from "svelte";
+
+    const dispatch = createEventDispatcher();
+</script>
+
 <div class="h-screen flex items-center justify-center">
     <div class="flex justify-center h-full items-center">
         <div class="flex flex-col h-1/2 items-center mr-20">
@@ -18,11 +24,16 @@
                 The most used types of databases in the world!
             </p>
             <div>
-                <button class="px-4 rounded-lg bg-transparent border border-[#bc8cff] h-12 text-lg my-20 flex items-center justify-center hover-effect">
+                <button
+                    on:click={() => dispatch("continue")}
+                    class="px-4 rounded-lg bg-transparent border border-[#bc8cff] h-12 text-lg my-20 flex items-center justify-center hover-effect"
+                >
                     Continue
                     <span class="arrow-container inline-flex items-center ml-3">
                         <span class="arrow-tail"></span>
-                        <span class="border-r-2 border-b-2 border-white p-[3px] -rotate-[45deg]"></span>
+                        <span
+                            class="border-r-2 border-b-2 border-white p-[3px] -rotate-[45deg]"
+                        ></span>
                     </span>
                 </button>
             </div>
