@@ -3,7 +3,7 @@
     import json from "svelte-highlight/languages/json";
     import Radio from "./Radio.svelte";
     import { onMount } from "svelte";
-    import { Highlight } from "svelte-highlight";
+    import Highlight from "svelte-highlight/Highlight.svelte";
     import { nosql } from "../constants/code";
 
     export let name: string;

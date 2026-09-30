@@ -1,5 +1,6 @@
 <script lang="ts">
-    import Highlight, { LineNumbers } from "svelte-highlight";
+    import Highlight from "svelte-highlight/Highlight.svelte";
+    import LineNumbers from "svelte-highlight/LineNumbers.svelte";
     import typescript from "svelte-highlight/languages/typescript";
     import atomOneDark from "svelte-highlight/styles/atom-one-dark";
     import { createEventDispatcher } from "svelte";
