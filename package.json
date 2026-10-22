@@ -1,5 +1,6 @@
 {
 	"name": "databases",
+	"packageManager": "pnpm@11.26.0",
 	"version": "0.0.1",
 	"scripts": {
 		"dev": "vite dev",
@@ -12,7 +13,8 @@
 		"@fontsource/fira-mono": "^4.5.10",
 		"@neoconfetti/svelte": "^1.0.0",
 		"@sveltejs/adapter-auto": "^3.0.1",
-		"@sveltejs/kit": "^2.0.6",
+		"@sveltejs/adapter-node": "2.0.0",
+		"@sveltejs/kit": "2.0.6",
 		"autoprefixer": "^10.4.16",
 		"highlight.js": "^11.9.0",
 		"postcss": "^8.4.32",

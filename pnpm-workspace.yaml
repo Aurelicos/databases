@@ -1,3 +1,4 @@
 allowBuilds:
-  esbuild: false
+  '@sveltejs/kit': true
+  esbuild: true
   svelte-preprocess: false

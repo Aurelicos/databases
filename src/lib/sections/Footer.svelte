@@ -6,7 +6,7 @@
     class="bg-[#161b22] w-full h-20 flex justify-center items-center text-[#848d97]"
 >
     <h3>© {year} Aurel1co$</h3>
-    <a href="https://github.com/Aurelicos">
+    <a href="https://github.com/Aurelicos/databases">
         <img
             src="/svg/github.svg"
             alt="github"

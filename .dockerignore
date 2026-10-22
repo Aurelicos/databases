@@ -1,5 +1,7 @@
 .git
 node_modules
+.env
+.env.*
 .eslint*
 .prettier*
 .git*

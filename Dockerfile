@@ -1,17 +1,17 @@
-ARG NODE_VERSION=21.4.0
-
-FROM node:${NODE_VERSION}-alpine as base
-
+FROM node:22-alpine AS build
 WORKDIR /app
-
-COPY package*.json ./
-
-RUN npm install
-
+RUN corepack enable
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+RUN pnpm install --frozen-lockfile
 COPY . .
+RUN pnpm build
 
-RUN npm run build
-
-EXPOSE 4173
-
-CMD ["npm", "run", "preview", "--", "--host", "0.0.0.0", "--port", "4173"]
+FROM node:22-alpine
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=3000
+WORKDIR /app
+COPY --from=build /app/build ./build
+COPY --from=build /app/node_modules ./node_modules
+COPY --from=build /app/package.json ./package.json
+USER node
+EXPOSE 3000
+CMD ["node", "build"]

@@ -1,17 +1,45 @@
 import { MongoClient } from 'mongodb';
 
+const MAX_ITEMS = 50;
+let pending = Promise.resolve();
+
+function mongoUrl() {
+    const user = process.env.MONGODB_USER;
+    const password = process.env.MONGODB_PASSWORD;
+    if (user && password) {
+        return `mongodb://${encodeURIComponent(user)}:${encodeURIComponent(password)}@mongodb:27017/?authSource=admin`;
+    }
+    return process.env.MONGODB_URL ?? 'mongodb://localhost:27017';
+}
+
 const dbConfig = {
-    url: 'mongodb://localhost:27017',
-    dbName: 'mongodb_showcase'
+    url: mongoUrl(),
+    dbName: process.env.MONGODB_DATABASE ?? 'mongodb_showcase'
 };
 
-export async function GET(request) {
-    const client = new MongoClient(dbConfig.url);
+export async function GET(request: any) {
+    const previous = pending;
+    let release!: () => void;
+    pending = new Promise<void>((resolve) => { release = resolve; });
+    await previous;
+    try {
+        return await handleRequest(request);
+    } finally {
+        release();
+    }
+}
+
+async function handleRequest(request: any) {
+    const client = new MongoClient(dbConfig.url, { serverSelectionTimeoutMS: 5000 });
 
     try {
         await client.connect();
         const db = client.db(dbConfig.dbName);
         const collection = db.collection('showcase');
+
+        if (await collection.countDocuments() === 0) {
+            await collection.insertOne({ name: 'User_0', email: 'User_0@example.com' });
+        }
 
         const url = new URL(request.url);
         const action = url.searchParams.get('action');
@@ -22,14 +50,6 @@ export async function GET(request) {
                 const email = `${name}@example.com`;
                 await collection.insertOne({ name, email });
 
-                const count = await collection.countDocuments();
-                if (count > 25) {
-                    const excess = count - 1;
-                    console.log(excess);
-                    const oldestDocs = await collection.find().sort({ _id: 1 }).limit(excess).toArray();
-                    const oldestIds = oldestDocs.map((doc: any) => doc._id);
-                    await collection.deleteMany({ _id: { $in: oldestIds } });
-                }
                 break;
             case '2':
                 const total = await collection.countDocuments();
@@ -45,7 +65,12 @@ export async function GET(request) {
                 break;
         }
 
-        const finalRows = await collection.find().toArray();
+        const oldestDocs = await collection.find({}, { projection: { _id: 1 } })
+            .sort({ _id: -1 }).skip(MAX_ITEMS).toArray();
+        if (oldestDocs.length) {
+            await collection.deleteMany({ _id: { $in: oldestDocs.map((doc) => doc._id) } });
+        }
+        const finalRows = await collection.find().sort({ _id: 1 }).toArray();
         return new Response(JSON.stringify(finalRows));
     } catch (error) {
         console.error('Error:', error);
