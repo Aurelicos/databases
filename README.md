@@ -6,6 +6,10 @@ volumes.
 
 ## Run on a server
 
+This demo uses MySQL 8.0 on Debian and MongoDB 4.4 on Ubuntu 20.04 images so it
+can run on an older virtual CPU without AVX. MongoDB 4.4 is out of support;
+this setup is only for the showcase and must not be used for real data.
+
 Install Docker Engine and the Docker Compose plugin. In this directory:
 
 ```sh
@@ -37,6 +41,11 @@ to delete all saved records. MySQL creates its table from
 collection on the first API request. If you reuse an existing MySQL volume,
 create the `showcase` table manually because initialization scripts do not run
 again for an existing volume.
+
+If you previously tried the MySQL 8.4 and MongoDB 7 images, Compose will
+recreate those containers with the older images. The older database images use
+separate `mysql_legacy_data` and `mongodb_legacy_data` volumes; the original
+volumes are left untouched.
 
 The application retains at most 50 records per database. On each API request
 it removes older records above that limit. The Docker setup runs one application

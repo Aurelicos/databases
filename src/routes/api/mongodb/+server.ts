@@ -4,12 +4,13 @@ const MAX_ITEMS = 50;
 let pending = Promise.resolve();
 
 function mongoUrl() {
+    if (process.env.MONGODB_URL) return process.env.MONGODB_URL;
     const user = process.env.MONGODB_USER;
     const password = process.env.MONGODB_PASSWORD;
     if (user && password) {
         return `mongodb://${encodeURIComponent(user)}:${encodeURIComponent(password)}@mongodb:27017/?authSource=admin`;
     }
-    return process.env.MONGODB_URL ?? 'mongodb://localhost:27017';
+    return 'mongodb://localhost:27017';
 }
 
 const dbConfig = {
